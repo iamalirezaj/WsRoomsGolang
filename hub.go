@@ -25,7 +25,7 @@ func (h *Hub) GetRoom(name string) *Room {
 func (h *Hub) HandleWS(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	roomName := params["room"]
+	roomName := params["stream_hash_id"]
 
 	c, err := h.upgrader.Upgrade(w, r, nil)
 	if err != nil {
