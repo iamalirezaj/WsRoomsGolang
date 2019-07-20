@@ -9,8 +9,9 @@ services:
       - "3000:3000"
     restart: always
     networks:
-      - network
+      - default
 
 networks:
-  network:
-    driver: bridge
+  default:
+    external:
+      name: restreamweb_network
