@@ -12,7 +12,7 @@ import (
 func main() {
 
 	var (
-		socketFile = flag.String("sock", "/restream.web/sockets/websocket.sock", "Socket file")
+		socketFile = flag.String("sock", "/restream.app/sockets/websocket.sock", "Socket file")
 	)
 
 	os.Remove(*socketFile)
