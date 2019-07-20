@@ -8,6 +8,9 @@ services:
     ports:
       - "3000:3000"
     restart: always
+    volumes:
+      - cdn:/restream.app/static
+      - sockets:/restream.app/sockets
     networks:
       - default
 
@@ -15,3 +18,7 @@ networks:
   default:
     external:
       name: restreamweb_network
+
+volumes:
+    cdn:
+    sockets:

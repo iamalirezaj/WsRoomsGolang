@@ -1,15 +1,24 @@
 package main
 
 import (
+	"os"
 	"log"
 	"flag"
+	"net"
 	"net/http"
 	"github.com/gorilla/mux"
 )
 
-var addr = flag.String("addr", "0.0.0.0:8080", "http service address")
+var sockFile = flag.String("sock", "/restream.web/sockets/websocket.sock", "Socket file")
 
 func main() {
+
+	os.Remove(*sockFile)
+
+	unixListener, err := net.Listen("unix", *sockFile)
+	if err != nil {
+		panic(err)
+	}
 
 	flag.Parse()
 	log.SetFlags(0)
@@ -20,5 +29,5 @@ func main() {
 	router.HandleFunc("/stream/{stream_hash_id}", hub.HandleWS).Methods("GET")
 
 	http.Handle("/", router)
-	log.Printf("http_err: %v", http.ListenAndServe(*addr, nil))
+	log.Printf("http_err: %v", http.Serve(unixListener, nil))
 }
