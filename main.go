@@ -22,6 +22,13 @@ func main() {
 		panic(err)
 	}
 
+	file, err := os.Open(*socketFile)
+	if err != nil {
+		panic(err)
+	}
+
+	file.Chmod(0660)
+
 	flag.Parse()
 	log.SetFlags(0)
 
@@ -31,5 +38,8 @@ func main() {
 	router.HandleFunc("/stream/{stream_hash_id}", hub.HandleWS).Methods("GET")
 
 	http.Handle("/", router)
+
+	defer unixListener.Close()
+
 	log.Printf("http_err: %v", http.Serve(unixListener, nil))
 }
