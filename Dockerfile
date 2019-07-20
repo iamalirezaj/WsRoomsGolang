@@ -17,6 +17,3 @@ RUN go get
 
 # build project
 RUN go build -o server .
-
-# Expose websocket server port
-EXPOSE 3000

@@ -9,13 +9,15 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var sockFile = flag.String("sock", "/restream.web/sockets/websocket.sock", "Socket file")
-
 func main() {
 
-	os.Remove(*sockFile)
+	var (
+		socketFile = flag.String("sock", "/restream.web/sockets/websocket.sock", "Socket file")
+	)
 
-	unixListener, err := net.Listen("unix", *sockFile)
+	os.Remove(*socketFile)
+
+	unixListener, err := net.Listen("unix", *socketFile)
 	if err != nil {
 		panic(err)
 	}
