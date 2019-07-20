@@ -22,13 +22,6 @@ func main() {
 		panic(err)
 	}
 
-	file, err := os.Open(*socketFile)
-	if err != nil {
-		panic(err)
-	}
-
-	file.Chmod(0660)
-
 	flag.Parse()
 	log.SetFlags(0)
 
